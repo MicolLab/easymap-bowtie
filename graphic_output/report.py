@@ -52,19 +52,19 @@ with open(input_log, 'r') as f1:
 			sp = line.split()
 			ins_file = str(sp[-1])
 
-		if line.startswith('Library type (problem sample):'):
+		if line.startswith('Library type (test sample):'):
 			sp = line.split()
 			reads_type = str(sp[-1])
 
-		if line.startswith('Single-end reads (problem sample):'):
+		if line.startswith('Single-end reads (test sample):'):
 			sp = line.split()
 			reads_s = str(sp[-1])
 
-		if line.startswith('Forward reads (problem sample):'):
+		if line.startswith('Forward reads (test sample):'):
 			sp = line.split()
 			reads_f = str(sp[-1])
 
-		if line.startswith('Reverse reads (problem sample):'):
+		if line.startswith('Reverse reads (test sample):'):
 			sp = line.split()
 			reads_r = str(sp[-1])
 
@@ -282,7 +282,7 @@ if mut_type == 'lin' and data_source == 'exp':
 	if reads_type == 'pe':
 		output.write(
 '		<tr>' + '\n'
-'			<td> <b>Input reads files:</b></td>' + '\n'
+'			<td> <b>Input read files:</b></td>' + '\n'
 '			<td>' + reads_f + ', &nbsp;&nbsp;&nbsp;&nbsp;' + reads_r + '</td>' + '\n'
 '		</tr>' + '\n'
 		)
@@ -290,7 +290,7 @@ if mut_type == 'lin' and data_source == 'exp':
 	elif reads_type == 'se':
 		output.write(
 '		<tr>' + '\n'
-'			<td> <b>Input reads files:</b></td>' + '\n'
+'			<td> <b>Input read files:</b></td>' + '\n'
 '			<td>' + reads_s + '</td>' + '\n'
 '		</tr>' + '\n'
 			)
@@ -300,7 +300,7 @@ if mut_type == 'snp' and data_source == 'exp':
 	if reads_type == 'pe':
 		output.write(
 '		<tr>' + '\n'
-'			<td> <b>Input problem reads files:</b></td>' + '\n'
+'			<td> <b>Input test read files:</b></td>' + '\n'
 '			<td>' + reads_f + ', &nbsp;&nbsp;&nbsp;&nbsp;' + reads_r + '</td>' + '\n'
 '		</tr>' + '\n'
 		)
@@ -308,7 +308,7 @@ if mut_type == 'snp' and data_source == 'exp':
 	elif reads_type == 'se':
 		output.write(
 '		<tr>' + '\n'
-'			<td> <b>Input problem reads files:</b></td>' + '\n'
+'			<td> <b>Input test read files:</b></td>' + '\n'
 '			<td>' + reads_s + '</td>' + '\n'
 '		</tr>' + '\n'
 			)
@@ -316,7 +316,7 @@ if mut_type == 'snp' and data_source == 'exp':
 	if reads_type_control == 'pe':
 		output.write(
 '		<tr>' + '\n'
-'			<td> <b>Input control reads files:</b></td>' + '\n'
+'			<td> <b>Input control read files:</b></td>' + '\n'
 '			<td>' + reads_f_control + ', &nbsp;&nbsp;&nbsp;&nbsp;' + reads_r_control + '</td>' + '\n'
 '		</tr>' + '\n'
 		)
@@ -324,7 +324,7 @@ if mut_type == 'snp' and data_source == 'exp':
 	elif reads_type_control == 'se':
 		output.write(
 '		<tr>' + '\n'
-'			<td> <b>Input control reads files:</b></td>' + '\n'
+'			<td> <b>Input control read files:</b></td>' + '\n'
 '			<td>' + reads_s_control + '</td>' + '\n'
 '		</tr>' + '\n'
 			)
@@ -425,7 +425,7 @@ if data_source == 'exp':
 	if mut_type == 'snp': 
 		if reads_type == 'pe':
 			output.write(
-	'		<b>Problem paired end reads quality assessment<br></b>' + '\n'
+	'		<b>Test reads quality assessment<br></b>' + '\n'
 	'		<p>Forward reads<br></p>' + '\n'
 	'		<center> <img class="img" src="'+'paired-end-problem-forward-reads-qual-stats.png" > </center> ' + '\n'
 	'		<p>Reverse reads<br></p>' + '\n'
@@ -434,13 +434,13 @@ if data_source == 'exp':
 
 		if reads_type == 'se':
 			output.write(
-	'		<b>Problem single end reads quality assessment<br></b>' + '\n'
+	'		<b>Test reads quality assessment<br></b>' + '\n'
 	'		<center> <img class="img" src="single-end-problem-reads-qual-stats.png" width="500" > </center> ' + '\n'
 			)
 
 		if reads_type_control == 'pe':
 			output.write(
-	'		<b>Control paired end reads quality assessment<br></b>' + '\n'
+	'		<b>Control reads quality assessment<br></b>' + '\n'
 	'		<p>Forward reads<br></p>' + '\n'
 	'		<center> <img class="img" src="'+'paired-end-control-forward-reads-qual-stats.png" > </center> ' + '\n'
 	'		<p>Reverse reads<br></p>' + '\n'
@@ -449,15 +449,15 @@ if data_source == 'exp':
 
 		if reads_type_control == 'se':
 			output.write(
-	'		<b>Control single end reads quality assessment<br></b>' + '\n'
+	'		<b>Control reads quality assessment<br></b>' + '\n'
 	'		<center> <img class="img" src="single-end-control-reads-qual-stats.png" width="500" > </center> ' + '\n'
 			)
 
 #Read depth distribution graphics
 if mut_type == 'snp': 
 	output.write(
-	'		<b>Problem and control samples read depth distribution<br></b>' + '\n'
-	'		<p>Problem sample<br></p>' + '\n'
+	'		<b>Test and control samples read depth distribution<br></b>' + '\n'
+	'		<p>Test sample<br></p>' + '\n'
 	'		<center> <img class="img" src="frequence_depth_alignment_distribution_sample.png" > </center> ' + '\n'
 	'		<p>Control sample<br></p>' + '\n'
 	'		<center> <img class="img" src="frequence_depth_alignment_distribution_control.png" > </center> ' + '\n'
@@ -466,7 +466,7 @@ if mut_type == 'snp':
 
 if mut_type == 'lin': 
 	output.write(
-	'		<b>Problem sample read depth distribution<br></b>' + '\n'
+	'		<b>Test sample read depth distribution<br></b>' + '\n'
 	'		<center> <img class="img" src="frequence_depth_alignment_distribution_sample.png" > </center> ' + '\n'
 	'		<hr class="easymap">' + '\n'
 		)
@@ -714,7 +714,7 @@ if mut_type == 'snp':
 	output.write(
 	'		<hr class="easymap">' + '\n'
 	'		<h2>Candidate polymorphisms overview</h2>' + '\n'
-	'		<p>The chromosome containing the candidate region is displayed along with the total polymorphisms in the problem sample, highlighting the window that contains the candidate variants and representing the selected position as a dashed line. </p>' + '\n'
+	'		<p>The chromosome containing the candidate region is displayed along with the total polymorphisms in the test sample, highlighting the window that contains the candidate variants and representing the selected position as a dashed line. </p>' + '\n'
 		) 
 
 	#Candidates 

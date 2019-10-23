@@ -1531,20 +1531,26 @@ def gene_plot():
 			draw.line((int(0.15*wide), int(169/350.0*height)) + (int(0.16*wide), int(169/350.0*height)), fill=(255, 255, 255, 0), width=1)
 
 		#Scale bar
-		if args.my_mut == 'snp':
+		px_scale_test = float(100/gene_scaling_factor)
+		if px_scale_test >=4: 
 			scale = 100
 			scale_tag = '100 bp'
-			w, h = draw.textsize(str(scale_tag))
+		if px_scale_test < 4: 
+			scale = 500
+			scale_tag = '500 bp'
 
+		if args.my_mut == 'snp':
+			#scale = 100
+			#scale_tag = '100 bp'
+			w, h = draw.textsize(str(scale_tag))
 			px_scale = float(scale/gene_scaling_factor)
 			draw.line((int(0.91*wide) - int(px_scale) - w/2 + px_scale/2, int(110/350.0*height)) + (int(0.91*wide) - w/2 + px_scale/2, int(110/350.0*height)), fill=(0, 0, 0, 0), width=int(0.002*wide))
 			draw.text((int(0.87*wide), int(117.8/350.0*height)), (scale_tag), font=fnt2, fill=(0,0,0,255))
 
 		if args.my_mut == 'lin':
-			scale = 100
-			scale_tag = '100 bp'
+			#scale = 100
+			#scale_tag = '100 bp'
 			w, h = draw.textsize(str(scale_tag))
-
 			px_scale = float(scale/gene_scaling_factor)
 			draw.line((int(0.91*wide) - int(px_scale) - w/2 + px_scale/2, int(250/350.0*height)) + (int(0.91*wide) - w/2 + px_scale/2, int(250/350.0*height)), fill=(0, 0, 0, 0), width=int(0.002*wide))
 			draw.text((int(0.87*wide), int(257.8/350.0*height)), (scale_tag), font=fnt2, fill=(0,0,0,255))

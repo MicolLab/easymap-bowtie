@@ -64,6 +64,9 @@ my_pseq=${17}													#mut / nomut : sequenced parental provided is the muta
 snp_analysis_type=${18}
 stringency=${20}
 
+#Set number of maximum CPU for steps compatible with multithreading, default = 1 
+threads=1
+
 # Set internal variables according to the SNP validation stringency chosen by the user
 if [ $stringency == high_stringency ]; then
 	problemSample_bowtie_mp="--mp 6,2"
@@ -111,7 +114,7 @@ function get_problem_va {
 	then
 		#Run bowtie2 unpaired to align raw F2 reads to genome 
 		{
-			$location/bowtie2/bowtie2 --very-sensitive $problemSample_bowtie_mp -x $f1/$my_ix -U $my_rd -S $f1/alignment1.sam 2> $f2/bowtie2_problem-sample_std2.txt
+			$location/bowtie2/bowtie2 -p $threads --very-sensitive $problemSample_bowtie_mp -x $f1/$my_ix -U $my_rd -S $f1/alignment1.sam 2> $f2/bowtie2_problem-sample_std2.txt
 
 		} || {
 			echo $(date "+%F > %T")': Bowtie2 returned an error during the aligment of F2 reads. See log files.' >> $my_log_file
@@ -126,7 +129,7 @@ function get_problem_va {
 	then
 		#Run bowtie2 paired to align raw F2 reads to genome 
 		{
-			$location/bowtie2/bowtie2 --very-sensitive  $problemSample_bowtie_mp -X 1000  -x $f1/$my_ix -1 $my_rf -2 $my_rr -S $f1/alignment1.sam 2> $f2/bowtie2_problem-sample_std2.txt
+			$location/bowtie2/bowtie2  -p $threads --very-sensitive  $problemSample_bowtie_mp -X 1000  -x $f1/$my_ix -1 $my_rf -2 $my_rr -S $f1/alignment1.sam 2> $f2/bowtie2_problem-sample_std2.txt
 
 		} || {
 			echo $(date "+%F > %T")': Bowtie2 returned an error during the aligment of F2 reads. See log files.' >> $my_log_file
@@ -139,7 +142,7 @@ function get_problem_va {
 
 	#SAM to BAM
 	{
-		$location/samtools1/samtools sort $f1/alignment1.sam > $f1/alignment1.bam 2> $f2/sam-to-bam_problem-sample_std2.txt
+		$location/samtools1/samtools sort  -@ $threads  $f1/alignment1.sam > $f1/alignment1.bam 2> $f2/sam-to-bam_problem-sample_std2.txt
 		rm -rf ./user_projects/$project_name/1_intermediate_files/alignment1.sam
 
 	} || {
@@ -226,7 +229,7 @@ function get_control_va {
 	then
 		#Run bowtie2 unpaired to align raw F2 reads to genome 
 		{
-			$location/bowtie2/bowtie2 --very-sensitive  -x $f1/$my_ix -U $my_p_rd -S $f1/alignment1P.sam 2> $f2/bowtie2_control-sample_std2.txt
+			$location/bowtie2/bowtie2  -p $threads --very-sensitive  -x $f1/$my_ix -U $my_p_rd -S $f1/alignment1P.sam 2> $f2/bowtie2_control-sample_std2.txt
 
 		} || {
 			echo $(date "+%F > %T")': Bowtie2 returned an error during the aligment of control reads. See log files.' >> $my_log_file
@@ -241,7 +244,7 @@ function get_control_va {
 	then
 		#Run bowtie2 paired to align raw F2 reads to genome 
 		{
-			$location/bowtie2/bowtie2 --very-sensitive --mp 3,2  -X 1000  -x $f1/$my_ix -1 $my_p_rf -2 $my_p_rr -S $f1/alignment1P.sam 2> $f2/bowtie2_control-sample_std2.txt
+			$location/bowtie2/bowtie2  -p $threads --very-sensitive --mp 3,2  -X 1000  -x $f1/$my_ix -1 $my_p_rf -2 $my_p_rr -S $f1/alignment1P.sam 2> $f2/bowtie2_control-sample_std2.txt
 
 		} || {
 			echo $(date "+%F > %T")': Bowtie2 returned an error during the aligment of control reads. See log files.' >> $my_log_file
@@ -254,7 +257,7 @@ function get_control_va {
 
 	#SAM to BAM
 	{
-		$location/samtools1/samtools sort $f1/alignment1P.sam > $f1/alignment1P.bam 2> $f2/sam-to-bam_control-sample_std2.txt
+		$location/samtools1/samtools sort  -@ $threads $f1/alignment1P.sam > $f1/alignment1P.bam 2> $f2/sam-to-bam_control-sample_std2.txt
 
 		rm -rf ./user_projects/$project_name/1_intermediate_files/alignment1P.sam
 

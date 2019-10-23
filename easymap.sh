@@ -165,10 +165,10 @@ echo "Reference sequence:							" $4 >> $my_log_file
 echo "Insertion sequence:							" $5 >> $my_log_file
 echo "GFF file:										" $6 >> $my_log_file
 echo "Annotation file:								" $7 >> $my_log_file
-echo "Single-end reads (problem sample):			" $8 >> $my_log_file
-echo "Forward reads (problem sample):				" $9 >> $my_log_file
-echo "Reverse reads (problem sample):				" ${10} >> $my_log_file
-echo "Library type (problem sample):				" ${11} >> $my_log_file
+echo "Single-end reads (test sample):			" $8 >> $my_log_file
+echo "Forward reads (test sample):				" $9 >> $my_log_file
+echo "Reverse reads (test sample):				" ${10} >> $my_log_file
+echo "Library type (test sample):				" ${11} >> $my_log_file
 echo "Single-end reads (control sample):			" ${12} >> $my_log_file
 echo "Forward reads (control sample):				" ${13} >> $my_log_file
 echo "Reverse reads (control sample):				" ${14} >> $my_log_file
@@ -189,7 +189,7 @@ echo $(date "+%F > %T")": Project data directories created." >> $my_log_file
 
 ############################################################
 # Overwrite read_s, read_f and read_r
-# 'problem': F2 recessive phenotype (mutant phenotype in recessive mutations)
+# 'test': F2 recessive phenotype (mutant phenotype in recessive mutations)
 # 'control': if snp_analysis_type=par_mut/par_nomut, reads from one of the parentals used in cross; if snp_analysis_type=f2wt, F2 dominant phenotype (wildtype phenotype in recessive mutations)
 
 if [ $data_source == 'sim' ]; then
